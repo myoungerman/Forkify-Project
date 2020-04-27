@@ -56,29 +56,23 @@ function displaySearchResults (data) {
 }
 
 function switchPage(pageToLoad) {
-     if (pageToLoad === 'next') { // Load the next page.
-        document.querySelector(`.page${currResultsPage}`).style.display = 'none';
-        currResultsPage += 1;
-        document.querySelector(`.page${currResultsPage}`).style.display = 'block';
-        previousBtn.style.display = 'block';
-        previousBtn.querySelector('span').textContent = `Page ${currResultsPage}`;
-        nextBtn.querySelector('span').textContent = `Page ${currResultsPage + 2}`;
+    
+    let lastPage = numDivs.length - 1;
+    let secondToLastPage = numDivs.length - 2;
 
-        if (currResultsPage == (numDivs.length - 1)) { // Hide the next button if this is the last page.
-            nextBtn.style.display = 'none';
-        } 
-    } else { // Load the previous page.
-        document.querySelector(`.page${currResultsPage}`).style.display = 'none';
-        currResultsPage -= 1;
-        document.querySelector(`.page${currResultsPage}`).style.display = 'block';
-        previousBtn.querySelector('span').textContent = `Page ${currResultsPage}`;
-        nextBtn.querySelector('span').textContent = `Page ${currResultsPage + 2}`;
+    document.querySelector(`.page${currResultsPage}`).style.display = 'none';
+    pageToLoad === 'next' ? currResultsPage += 1 : currResultsPage -= 1;
+    document.querySelector(`.page${currResultsPage}`).style.display = 'block';
 
-        if (currResultsPage == (numDivs.length - 2)) { // Show the next button if another page exists.
-            nextBtn.style.display = 'block';
-        } 
-        if (currResultsPage == 0) { // Hide the previous button if this is the first page.
-            previousBtn.style.display = 'none';
-        }
-    }
+    if (pageToLoad === 'next') { previousBtn.style.display = 'block'; }
+
+    previousBtn.querySelector('span').textContent = `Page ${currResultsPage}`;
+    nextBtn.querySelector('span').textContent = `Page ${currResultsPage + 2}`;
+
+    if (currResultsPage == lastPage) { nextBtn.style.display = 'none'; } // Hide the next button if this is the last page.
+
+    if (currResultsPage == secondToLastPage) { nextBtn.style.display = 'block'; } // Show the next button if another page exists. 
+
+    if (currResultsPage == 0) {  previousBtn.style.display = 'none'; } // Hide the previous button if this is the first page.
+
 }
