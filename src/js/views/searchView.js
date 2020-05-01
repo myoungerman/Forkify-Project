@@ -33,12 +33,12 @@ function displaySearchResults (data) {
     let currPage = 0;
     let parentDiv = 0;
 
-    for (let i = 0; i < numRecipeResults; i += 10) {
+    for (let i = 0; i < numRecipeResults; i += 10) { // Insert the div that will contain the next 10 results.
         numOfListItems[i].insertAdjacentHTML('beforebegin', `<div class="page${currPage}"></div>`);
         currPage += 1;
     }
 
-    for (let j = 0; j < numRecipeResults; j++) {
+    for (let j = 0; j < numRecipeResults; j++) { // Move the next 10 results into the current div.
         document.querySelector(`.page${parentDiv}`).append(numOfListItems[j]);
         if ((j + 1) % 10 === 0) {
             parentDiv += 1;
@@ -56,7 +56,6 @@ function displaySearchResults (data) {
 }
 
 function switchPage(pageToLoad) {
-    
     let lastPage = numDivs.length - 1;
     let secondToLastPage = numDivs.length - 2;
 
