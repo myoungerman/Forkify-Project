@@ -8,7 +8,8 @@ module.exports = {
         filename: 'js/bundle.js'
     },
     devServer: {
-        contentBase: './dist' // Where Webpack should serve our files from.
+        contentBase: './dist', // Where Webpack should serve our files from.
+        writeToDisk: true
     },
     plugins: [
         new HtmlWebpackPlugin({
