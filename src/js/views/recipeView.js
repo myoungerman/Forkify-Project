@@ -30,29 +30,6 @@ function displayRecipeDetails(recipeObj) {
 
     for (let i = 0; i < arrOfIngredients.length; i++) {
         let ingredientString = arrOfIngredients[i];
-/*         let firstCharofString = ingredientString.charAt(0);
-        let ingredientQuantity = '';
-        let ingredientUnitAndName = '';
-        let numAfterSlash = ingredientString.search('/') + 2;
-        let numAfterHyphen = ingredientString.search('-') + 1;
-        let numBeforeSpace = ingredientString.search(' ');
-
-        console.log(ingredientString);
-        console.log(`character at ${numAfterHyphen} is ${ingredientString.charAt(numAfterHyphen)}`);
-        if (firstCharofString.match(/(\d+)/)) {
-            if (numAfterSlash != 1) {
-                ingredientQuantity = ingredientString.substring(0, numAfterSlash); // Store the quantity, which probably ends at this index.
-                ingredientUnitAndName = ingredientString.substring(numAfterSlash); // Get the remainder of the string.
-            } else if (numAfterHyphen != 0) {
-                ingredientQuantity = ingredientString.substring(0, (numAfterHyphen + 1));
-                ingredientUnitAndName = ingredientString.substring(numAfterHyphen + 1);
-            } else {
-                ingredientQuantity = ingredientString.substring(0, numBeforeSpace);
-                ingredientUnitAndName = ingredientString.substring(numBeforeSpace);
-            }
-        } else {
-            ingredientQuantity = 1;
-        } */
         document.querySelector('.recipe__ingredient-list').insertAdjacentHTML('beforeend', `<li class="recipe__item"><svg class="recipe__icon"><use href="img/icons.svg#icon-check"></use></svg><div class="recipe__count"></div><div class="recipe__ingredient"><span class="recipe__unit"></span>${ingredientString}</div></li>`);
     }
     firstTimeDisplayingAnyRecipe = false;

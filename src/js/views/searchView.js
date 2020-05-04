@@ -1,6 +1,4 @@
 export { displaySearchResults };
-export { previousBtn };
-export { nextBtn };
 export { switchPage };
 
 let currResultsPage = 0;
