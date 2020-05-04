@@ -2,7 +2,10 @@ import { searchForRecipeAW } from './models/Search';
 import { displaySearchResults } from './views/searchView';
 import { switchPage } from './views/searchView';
 import { loadRecipeAW } from './models/Recipe';
+import { parseIngredientString } from './models/Recipe';
 import { displayRecipeDetails } from './views/recipeView';
+import { getListOfIngredients } from './views/listView';
+import { updateShoppingList } from './views/listView';
 
 // Clicking Search
 document.querySelector('.search__btn').addEventListener('click', (event) => {
@@ -31,12 +34,16 @@ document.querySelector('.resultsPageNumber').addEventListener('click', (event) =
     }
 
     loadRecipeAW(recipeID).then(recipeObj => {
-        displayRecipeDetails(recipeObj);
+        parseIngredientString(recipeObj); // Pass the obj to the Recipe module for parsing
+        //displayRecipeDetails(recipeObj); // Pass the parsed strings to the recipeView module for display
     });
 });
 
 // Clicking Add to Shopping List
 document.querySelector('body').addEventListener('click', (event) => {
     let addtoListBtn = document.querySelector('.btn-small, recipe__btn');
-    if (addtoListBtn.contains(event.target)) {  } // get the current li of the recipe, then pass it to List
+    if (addtoListBtn.contains(event.target)) { 
+        let nodeList = getListOfIngredients();
+        updateShoppingList(nodeList);
+     }
 });
