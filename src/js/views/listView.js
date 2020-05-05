@@ -1,5 +1,10 @@
 export { getListOfIngredients };
 export { updateShoppingList };
+export { deleteShoppingListItem };
+
+let shoppingDiv = document.querySelector('.shopping');
+
+shoppingDiv.style.display = 'none';
 
 function getListOfIngredients() {
     let arrOfIngredients = [];
@@ -10,11 +15,6 @@ function getListOfIngredients() {
         let quantity = currListItem.querySelector('.recipe__count').textContent;
         let unit = currListItem.querySelector('.recipe__unit').textContent;
         let name = currListItem.querySelector('.recipe__ingredient').textContent;
-
-        console.log(`quantity: ${quantity}`);
-        console.log(`unit: ${unit}`);
-        console.log(`name: ${name}`);
-
         let ingredient = {
             quantity: quantity,
             unit: unit,
@@ -36,5 +36,13 @@ function updateShoppingList(ingredientList) {
         let name = currListItem.name;
 
         shoppingList.insertAdjacentHTML('beforeend', `<li class="shopping__item"> <div class="shopping__count"> <input type="number" value="${quantity}" step="100"> <p>${unit}</p> </div> <p class="shopping__description">${name}</p> <button class="shopping__delete btn-tiny"> <svg> <use href="img/icons.svg#icon-circle-with-cross"></use> </svg> </button> </li>`);
+    }
+}
+
+function deleteShoppingListItem(event) {
+    let shoppingListItem = document.querySelector('.shopping__list').querySelectorAll('li');
+
+    for (let i = 0; i < shoppingListItem.length; i++) {
+        if (shoppingListItem[i].querySelector('.shopping__delete, btn-tiny').contains(event.target)) { shoppingListItem[i].remove(); }
     }
 }

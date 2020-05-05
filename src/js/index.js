@@ -6,6 +6,7 @@ import { parseIngredientString } from './models/Recipe';
 import { displayRecipeDetails } from './views/recipeView';
 import { getListOfIngredients } from './views/listView';
 import { updateShoppingList } from './views/listView';
+import { deleteShoppingListItem } from './views/listView';
 
 // Clicking Search
 document.querySelector('.search__btn').addEventListener('click', (event) => {
@@ -46,4 +47,13 @@ document.querySelector('body').addEventListener('click', (event) => {
         let ingredientList = getListOfIngredients();
         updateShoppingList(ingredientList);
      }
+});
+
+// Deleting an item from the shopping list
+/*
+add a listener to the document container. If a list item's delete button contains the click event,
+delete that item and its children from the shopping list. 
+*/
+document.querySelector('.container').addEventListener('click', (event) => {
+    deleteShoppingListItem(event);
 });

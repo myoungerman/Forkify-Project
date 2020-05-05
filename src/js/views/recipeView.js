@@ -8,10 +8,12 @@ let recipeServings = document.querySelector('recipe__info-data recipe__info-data
 let recipePublisher = document.querySelector('.recipe__directions').querySelector('.recipe__by');
 let recipePublisherSite = document.querySelector('.recipe__directions').querySelector('.recipe__btn');
 let firstTimeDisplayingAnyRecipe = true;
+let shoppingDiv = document.querySelector('.shopping');
 
 recipe.style.display = 'none';
 
 function displayRecipeDetails(recipeObj, parsedIngredients) {
+    shoppingDiv.style.display = 'block';
     recipe.style.display = 'block';
     recipeImage.src = recipeObj.recipe.image_url;
     recipeTitle.textContent = recipeObj.recipe.title;
@@ -30,7 +32,7 @@ function displayRecipeDetails(recipeObj, parsedIngredients) {
         let name = currIngredient.name;
         let quantity = currIngredient.quantity;
         let unit = currIngredient.unitOfMeasurement;
-        document.querySelector('.recipe__ingredient-list').insertAdjacentHTML('beforeend', `<li class="recipe__item"><svg class="recipe__icon"><use href="img/icons.svg#icon-check"></use></svg><div class="recipe__count">${quantity}</div><div class="recipe__ingredient"><span class="recipe__unit">${unit}</span>${name}</div></li>`);
+        document.querySelector('.recipe__ingredient-list').insertAdjacentHTML('beforeend', `<li class="recipe__item"><svg class="recipe__icon"><use href="img/icons.svg#icon-check"></use></svg><div class="recipe__count">${quantity}</div><div class="recipe__ingredient"><span class="recipe__unit">${unit}</span> ${name}</div></li>`);
     }
     firstTimeDisplayingAnyRecipe = false;
 }
