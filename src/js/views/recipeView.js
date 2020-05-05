@@ -11,26 +11,26 @@ let firstTimeDisplayingAnyRecipe = true;
 
 recipe.style.display = 'none';
 
-function displayRecipeDetails(recipeObj) {
-    let arrOfIngredients = recipeObj.recipe.ingredients;
-
+function displayRecipeDetails(recipeObj, parsedIngredients) {
     recipe.style.display = 'block';
     recipeImage.src = recipeObj.recipe.image_url;
-
     recipeTitle.textContent = recipeObj.recipe.title;
     recipePublisher.textContent = recipeObj.recipe.publisher;
     recipePublisherSite.href = recipeObj.recipe.source_url;
 
-    if (firstTimeDisplayingAnyRecipe === false) {
+    if (firstTimeDisplayingAnyRecipe === false) { // Remove any ingredients of the previously loaded recipe.
         let previousItems = document.querySelector('.recipe__ingredient-list').querySelectorAll('li');
         for (let i = 0; i < previousItems.length; i++) {
             previousItems[i].remove();
         }
     }
 
-    for (let i = 0; i < arrOfIngredients.length; i++) {
-        let ingredientString = arrOfIngredients[i];
-        document.querySelector('.recipe__ingredient-list').insertAdjacentHTML('beforeend', `<li class="recipe__item"><svg class="recipe__icon"><use href="img/icons.svg#icon-check"></use></svg><div class="recipe__count"></div><div class="recipe__ingredient"><span class="recipe__unit"></span>${ingredientString}</div></li>`);
+    for (let i = 0; i < parsedIngredients.length; i++) { //
+        let currIngredient = parsedIngredients[i];
+        let name = currIngredient.name;
+        let quantity = currIngredient.quantity;
+        let unit = currIngredient.unitOfMeasurement;
+        document.querySelector('.recipe__ingredient-list').insertAdjacentHTML('beforeend', `<li class="recipe__item"><svg class="recipe__icon"><use href="img/icons.svg#icon-check"></use></svg><div class="recipe__count">${quantity} </div><div class="recipe__ingredient"><span class="recipe__unit">${unit} </span>${name}</div></li>`);
     }
     firstTimeDisplayingAnyRecipe = false;
 }
