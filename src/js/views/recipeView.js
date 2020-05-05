@@ -25,12 +25,12 @@ function displayRecipeDetails(recipeObj, parsedIngredients) {
         }
     }
 
-    for (let i = 0; i < parsedIngredients.length; i++) { //
+    for (let i = 0; i < parsedIngredients.length; i++) { // Add a list item for each ingredient in the recipe.
         let currIngredient = parsedIngredients[i];
         let name = currIngredient.name;
         let quantity = currIngredient.quantity;
         let unit = currIngredient.unitOfMeasurement;
-        document.querySelector('.recipe__ingredient-list').insertAdjacentHTML('beforeend', `<li class="recipe__item"><svg class="recipe__icon"><use href="img/icons.svg#icon-check"></use></svg><div class="recipe__count">${quantity} </div><div class="recipe__ingredient"><span class="recipe__unit">${unit} </span>${name}</div></li>`);
+        document.querySelector('.recipe__ingredient-list').insertAdjacentHTML('beforeend', `<li class="recipe__item"><svg class="recipe__icon"><use href="img/icons.svg#icon-check"></use></svg><div class="recipe__count">${quantity}</div><div class="recipe__ingredient"><span class="recipe__unit">${unit}</span>${name}</div></li>`);
     }
     firstTimeDisplayingAnyRecipe = false;
 }

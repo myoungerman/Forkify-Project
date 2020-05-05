@@ -43,7 +43,7 @@ document.querySelector('.resultsPageNumber').addEventListener('click', (event) =
 document.querySelector('body').addEventListener('click', (event) => {
     let addtoListBtn = document.querySelector('.btn-small, recipe__btn');
     if (addtoListBtn.contains(event.target)) { 
-        let nodeList = getListOfIngredients();
-        updateShoppingList(nodeList);
+        let ingredientList = getListOfIngredients();
+        updateShoppingList(ingredientList);
      }
 });
