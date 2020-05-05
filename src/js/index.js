@@ -34,8 +34,8 @@ document.querySelector('.resultsPageNumber').addEventListener('click', (event) =
     }
 
     loadRecipeAW(recipeID).then(recipeObj => {
-        parseIngredientString(recipeObj); // Pass the obj to the Recipe module for parsing
-        //displayRecipeDetails(recipeObj); // Pass the parsed strings to the recipeView module for display
+        let parsedIngredients = parseIngredientString(recipeObj);
+        displayRecipeDetails(recipeObj, parsedIngredients);
     });
 });
 
