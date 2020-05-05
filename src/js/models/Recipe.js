@@ -13,34 +13,16 @@ async function loadRecipeAW (recipeID) {
 }
 
 function parseIngredientString(recipeObj) {
-    /* 
-    Ingredients data should look something like:
-    • 8 ounces cream cheese, softened
-    • teaspoon dried oregano
-    • 1/4 cup chopped green bell pepper
-
-    For each ingredient, search the string for words like cup, teaspoon, etc.
-    If a match is found, set that word as the unit of measurement. Set everything after that word in the string as the ingredient name.
-    Set everything before that word in the string as the item quantity.
-    If the item quantity is '' and there is a unit of measurement, set the quantity to 1.
-    If there's a / in the item quantity, get the numbers on either side of the / and divide them. Add that to any other numbers in the string.
-
-    Else set the ingredient name to the string and remove the item quantity and unit of measurement.
-
-    Once I have the quantity, unit of measurement, and ingredient name, store them in a map/object/array?
-
-    Once all strings are parsed, return all of them.
-    */
     let arrOfIngredients = recipeObj.recipe.ingredients;
     let unitOfMeasurement = ['cup', 'tablespoon', 'teaspoon', 'ounce', 'pound', 'lb', 'quart', 'gallon', 'gram'];
+    let parsedIngredients = [];
 
     for (let i = 0; i < arrOfIngredients.length; i++) {
         let ingredientQuantity = '';
         let ingredientUnitOfMeasurement = '';
         let ingredientName = '';
-
         for (let el of unitOfMeasurement) { // Search the ingredient string for each keyword.
-            if ((arrOfIngredients[i].search(el) || arrOfIngredients[i].search(`${el}s`)) != -1) { // Searches string for the singular and plural of the keyword. 
+            if ((arrOfIngredients[i].search(el) || arrOfIngredients[i].search(`${el}s`)) != -1) { // Searches string for the singular and plural of the keyword.
                 let splitString = arrOfIngredients[i].split(el);
                 ingredientUnitOfMeasurement = el;
                 ingredientQuantity = splitString[0];
@@ -55,14 +37,38 @@ function parseIngredientString(recipeObj) {
 
                     ingredientQuantity = ingredientQuantity.replace(`${numBeforeSlash}/${numAfterSlash}`, `${quotient}`); // Replace the fraction with the decimal equivalent to add all numbers in the string later.
                 }
+
+                if ((ingredientQuantity.indexOf('(') && ingredientQuantity.indexOf(')')) != -1) { // Remove any parentheseses and text in them.
+                    let firstParenthesis = ingredientQuantity.indexOf('(');
+                    let secondParenthesis = ingredientQuantity.indexOf(')');
+                    let stringInParentheses = ingredientQuantity.substring(firstParenthesis, (secondParenthesis + 1));
+
+                    ingredientQuantity = ingredientQuantity.replace(stringInParentheses, '');
+                }
                 let numsInString = ingredientQuantity.split(' '); // Split the quantity at each space, returning each individual number.
+                numsInString = numsInString.filter(el => el != '');
+
+                for (let j = 0; j < numsInString.length; j++) { // Cast the elements as numbers.
+                    numsInString[j] = parseFloat(numsInString[j]);
+                }
                 ingredientQuantity = numsInString.reduce(sumOfArray); // Combine all of the numbers in the string.
 
-                if (ingredientName.charAt(0) === 's') { ingredientName.replace('s ', ''); } // Remove the dangling 's ' if one exists.
+                if (ingredientName.charAt(0) === 's') { ingredientName = ingredientName.replace('s ', ''); } // Remove the dangling 's ' if one exists.
                 break; // Once a keyword is found, move to the next ingredient string.
+            } else {
+                ingredientQuantity = 1;
+                ingredientUnitOfMeasurement = '';
+                ingredientName = arrOfIngredients[i];
             }
         }
+        let ingredientObj = {
+            quantity: ingredientQuantity,
+            unitOfMeasurement: ingredientUnitOfMeasurement,
+            name: ingredientName
+        }
+        parsedIngredients.push(ingredientObj);
     }
+    return parsedIngredients;
 }
 
 function sumOfArray(total, num) {
