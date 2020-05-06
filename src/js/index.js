@@ -10,6 +10,16 @@ import { deleteShoppingListItem } from './views/listView';
 import { storeRecipe } from './models/Like';
 import { addRecipeToLikeList } from './views/likeView';
 import { showLikeList } from './views/likeView';
+import { checkStorage } from './models/Like';
+import { recreateLikeList } from './views/likeView';
+
+onOpen();
+
+// Refreshing the page or opening a duplicate tab
+function onOpen() {
+    let storedRecipes = checkStorage();
+    if (storedRecipes.length != 0) { recreateLikeList(storedRecipes); }
+}
 
 // Clicking Search
 document.querySelector('.search__btn').addEventListener('click', (event) => {
