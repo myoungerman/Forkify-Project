@@ -5,13 +5,14 @@ function storeRecipe() {
     let currRecipeTitle = document.querySelector('.recipe__title').querySelector('span').textContent;
     let recipesInSidebar = document.querySelector('.resultsPageNumber').querySelectorAll('li');
 
-    for (let i = 0; i < recipesInSidebar.length; i++) { // Store the recipe in the list that matches the currently loaded recipe.
+    for (let i = 0; i < recipesInSidebar.length; i++) { // Look in the search results and store the recipe that matches the currently loaded recipe.
         if (currRecipeTitle === recipesInSidebar[i].querySelector('.results__name').textContent) {
             let recipeToStore = recipesInSidebar[i].outerHTML;
             let key = recipesInSidebar[i].querySelector('.results__link').href; 
 
             localStorage.setItem(key, recipeToStore);
-            return key;
+            let htmlAsString = localStorage.getItem(key);
+            return htmlAsString;
         }
     }
 }
