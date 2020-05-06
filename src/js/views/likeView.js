@@ -2,9 +2,8 @@ export { addRecipeToLikeList };
 export { showLikeList };
 export { recreateLikeList };
 
-function addRecipeToLikeList(key) {
+function addRecipeToLikeList(recipeString) {
     let likesList = document.querySelector('.likes__list');
-    let recipeString = localStorage.getItem(key);
     
     likesList.insertAdjacentHTML('beforeend', recipeString);
 }

@@ -71,8 +71,8 @@ document.querySelector('.container').addEventListener('click', (event) => {
 document.querySelector('.container').addEventListener('click', (event) => {
     let heartBtnInRecipe = document.querySelector('.recipe__love');
     if (heartBtnInRecipe.contains(event.target)) {
-        let key = storeRecipe();
-        addRecipeToLikeList(key);
+        let htmlAsString = storeRecipe();
+        addRecipeToLikeList(htmlAsString);
     }
 });
 
