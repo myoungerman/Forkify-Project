@@ -7,6 +7,9 @@ import { displayRecipeDetails } from './views/recipeView';
 import { getListOfIngredients } from './views/listView';
 import { updateShoppingList } from './views/listView';
 import { deleteShoppingListItem } from './views/listView';
+import { storeRecipe } from './models/Like';
+import { addRecipeToLikeList } from './views/likeView';
+import { showLikeList } from './views/likeView';
 
 // Clicking Search
 document.querySelector('.search__btn').addEventListener('click', (event) => {
@@ -24,13 +27,13 @@ document.querySelector('.results__pages').addEventListener('click', () => {
 
 // Clicking a recipe in the search results
 document.querySelector('.resultsPageNumber').addEventListener('click', (event) => {
-    let listItems = document.querySelectorAll('li');
+    let likeList = document.querySelectorAll('li');
     let recipeID = '';
 
     event.preventDefault();
-    for (let i = 0; i < listItems.length; i++) {
-        if (listItems[i].contains(event.target)) {
-            recipeID = listItems[i].querySelector('.results__link').getAttribute('href');
+    for (let i = 0; i < likeList.length; i++) {
+        if (likeList[i].contains(event.target)) {
+            recipeID = likeList[i].querySelector('.results__link').getAttribute('href');
         }
     }
 
@@ -49,11 +52,41 @@ document.querySelector('body').addEventListener('click', (event) => {
      }
 });
 
-// Deleting an item from the shopping list
-/*
-add a listener to the document container. If a list item's delete button contains the click event,
-delete that item and its children from the shopping list. 
-*/
+// Deleting an ingredient from the shopping list
 document.querySelector('.container').addEventListener('click', (event) => {
     deleteShoppingListItem(event);
+});
+
+// Adding a recipe to the like list
+document.querySelector('.container').addEventListener('click', (event) => {
+    let heartBtnInRecipe = document.querySelector('.recipe__love');
+    if (heartBtnInRecipe.contains(event.target)) {
+        let key = storeRecipe();
+        addRecipeToLikeList(key);
+    }
+});
+
+// Displaying the like list
+document.querySelector('.container').addEventListener('click', (event) => {
+    let heartBtnAtTopOfPage = document.querySelector('.likes__field');
+
+    if (heartBtnAtTopOfPage.contains(event.target)) { showLikeList(); }
+});
+
+// Clicking a recipe in the like list
+document.querySelector('.likes__list').addEventListener('click', (event) => {
+    let likeList = document.querySelector('.likes__list').querySelectorAll('li');
+    let recipeID = '';
+
+    event.preventDefault();
+    for (let i = 0; i < likeList.length; i++) {
+        if (likeList[i].contains(event.target)) {
+            recipeID = likeList[i].querySelector('.results__link').getAttribute('href');
+        }
+    }
+
+    loadRecipeAW(recipeID).then(recipeObj => {
+        let parsedIngredients = parseIngredientString(recipeObj);
+        displayRecipeDetails(recipeObj, parsedIngredients);
+    });
 });
