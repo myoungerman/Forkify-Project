@@ -1,6 +1,6 @@
 # Forkify-Project
 ## Background
-A website that uses a recipe API to generate search results and load recipe instructions. You can also add recipe ingredients to a shopping list and track your favorite recipes using local storage. The HTML and CSS were provided by a Udemy course, but all of the JS is mine. I used Babel and Webpack for this project.
+(A website)[https://verumemanio.github.io/Forkify-Project/] that uses a recipe API to generate search results and load recipe instructions. You can also add recipe ingredients to a shopping list and track your favorite recipes using local storage. The HTML and CSS were provided by a Udemy course, but all of the JS is mine. I used Babel and Webpack for this project.
 
 ## How to use the site
 <b>Search for a recipe</b>
