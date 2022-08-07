@@ -1,4 +1,7 @@
 # Forkify-Project
+
+[Check it out on Netlify](https://cosmic-sorbet-c6d346.netlify.app/). When I first finished the project, the UI rendered correctly, but since then there have been some UI bugs that I haven't fixed yet.
+
 ## Background
 A website that uses a recipe API to generate search results and load recipe instructions. You can also add recipe ingredients to a shopping list and track your favorite recipes using local storage. The HTML and CSS were provided by a Udemy course, but all of the JS is mine. I used Babel and Webpack for this project.
 
